@@ -4,13 +4,13 @@ import CourseGoalList from "./Components/CourseGoals/CourseGoalList/CourseGoalLi
 import "./App.css";
 
 const App = () => {
-  const [todos, setTodos] = useState([
+  const [courseGoal, setCourseGoal] = useState([
     // { text: "Sit Down and Code!", id: "1" },
     // { text: "Eat Healthy", id: "2" },
   ]);
 
   const addGoalHandler = (enteredValue) => {
-    setTodos((prevGoals) => {
+    setCourseGoal((prevGoals) => {
       const updatedGoals = [...prevGoals];
       updatedGoals.unshift({
         text: enteredValue,
@@ -22,19 +22,28 @@ const App = () => {
   };
 
   const deleteGoalHandler = (goalId) => {
-    setTodos((prevGoals) => {
+    setCourseGoal((prevGoals) => {
       const updatedGoals = prevGoals.filter((goal) => goal.id !== goalId);
       return updatedGoals;
     });
   };
 
+  const noGoalsMessage = (
+    <p style={{ textAlign: "center" }}>No goals found. Maybe add one?</p>
+  );
+
   return (
     <>
       <section id="goal-form">
         <CourseInput onAddGoal={addGoalHandler} />
-        <CourseGoalList items={todos} onDeleteItem={deleteGoalHandler} />
       </section>
-      <section id="goals"></section>
+      <section id="goals">
+        {courseGoal.length > 0 ? (
+          <CourseGoalList items={courseGoal} onDeleteItem={deleteGoalHandler} />
+        ) : (
+          [noGoalsMessage] // Wrap the JSX element in an array
+        )}
+      </section>
     </>
   );
 };
