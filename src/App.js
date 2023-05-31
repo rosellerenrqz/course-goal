@@ -16,7 +16,7 @@ const App = () => {
         text: enteredValue,
         id: Math.random().toString(),
       });
-      console.log(updatedGoals);
+      // console.log(updatedGoals);
       return updatedGoals;
     });
   };
@@ -41,7 +41,7 @@ const App = () => {
         {courseGoal.length > 0 ? (
           <CourseGoalList items={courseGoal} onDeleteItem={deleteGoalHandler} />
         ) : (
-          [noGoalsMessage] // Wrap the JSX element in an array
+          [noGoalsMessage]
         )}
       </section>
     </>

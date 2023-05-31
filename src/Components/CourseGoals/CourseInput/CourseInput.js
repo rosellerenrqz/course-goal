@@ -3,6 +3,7 @@ import Button from "../../UI/Button";
 import "./CourseInput.css";
 
 const CourseInput = (props) => {
+  const [isValid, setIsValid] = useState(true);
   const [inputVal, setInputVal] = useState("");
 
   const inputValHandler = (e) => {
@@ -12,17 +13,18 @@ const CourseInput = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (inputVal.trim()) {
-      props.onAddGoal(inputVal);
+    if (inputVal.trim().length === 0) {
       setInputVal("");
-      console.log(inputVal, "inptVal");
+      setIsValid(false);
+      return;
     }
+    props.onAddGoal(inputVal);
   };
 
   return (
     <form onSubmit={submitHandler}>
       <div className="form-control">
-        <label>Course Goul</label>
+        <label style={{ color: !isValid ? "red" : "black" }}>Course Goal</label>
         <input type="text" value={inputVal} onChange={inputValHandler} />
       </div>
       <Button type="submit">Add Goal</Button>
